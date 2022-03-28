@@ -66,6 +66,48 @@ submit.addEventListener("click", () => {
     "Please wait...Fetching response";
   //Fetch all the values user has entered
   let url = document.getElementById("url").value;
-  let requestType = document.querySelector("input[name='requestType']").value;
-  let contentType = document.querySelector("input[name='contentType']").value;
+  let requestType = document.querySelector(
+    "input[name='requestType']:checked"
+  ).value;
+  let contentType = document.querySelector(
+    "input[name='contentType']:checked"
+  ).value;
+
+  //If user has used params option instead of json ,collect all the parameters in an object
+  if (contentType == "params") {
+    data = {};
+    for (i = 0; i < addedParamCount + 1; i++) {
+      if (document.getElementById("paramaterKey" + (i + 1)) == undefined)
+        continue;
+      let key = document.getElementById("paramaterKey" + (i + 1)).value;
+      let value = document.getElementById("paramaterValue" + (i + 1)).value;
+      data[key] = value;
+    }
+    data = JSON.stringify(data);
+  } else {
+    data = document.getElementById("requestJsonText").value;
+  }
+
+  //If the request  type is post, invoke fetch api to create post request
+  if (requestType == "GET") {
+    fetch(url, {
+      method: "GET",
+    })
+      .then((response) => response.text())
+      .then((text) => {
+        document.getElementById("responseJsonText").value = text;
+      });
+  } else {
+    fetch(url, {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.text())
+      .then((text) => {
+        document.getElementById("responseJsonText").value = text;
+      });
+  }
 });
