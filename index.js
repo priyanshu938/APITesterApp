@@ -1,5 +1,4 @@
-//Utility functions:
-//1. Utility function to get DOM element from string
+//Utility function to get DOM element from string
 function getElementFromString(string) {
   let div = document.createElement("div");
   div.innerHTML = string;
@@ -62,7 +61,7 @@ addParam.addEventListener("click", () => {
 let submit = document.getElementById("submit");
 submit.addEventListener("click", () => {
   //Show please wait in the response box to request patience from the user
-  document.getElementById("responseJsonText").value =
+  document.getElementById("responsePrism").value =
     "Please wait...Fetching response";
   //Fetch all the values user has entered
   let url = document.getElementById("url").value;
@@ -95,7 +94,8 @@ submit.addEventListener("click", () => {
     })
       .then((response) => response.text())
       .then((text) => {
-        document.getElementById("responseJsonText").value = text;
+        document.getElementById("responsePrism").innerHTML = text;
+        Prism.highlightAll();
       });
   } else {
     fetch(url, {
@@ -107,7 +107,8 @@ submit.addEventListener("click", () => {
     })
       .then((response) => response.text())
       .then((text) => {
-        document.getElementById("responseJsonText").value = text;
+        document.getElementById("responsePrism").innerHTML = text;
+        Prism.highlightAll();
       });
   }
 });
