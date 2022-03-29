@@ -57,7 +57,7 @@ addParam.addEventListener("click", () => {
   addedParamCount++;
 });
 
-//If the user clicks on the submit button t
+//If the user clicks on the submit button 
 let submit = document.getElementById("submit");
 submit.addEventListener("click", () => {
   //Show please wait in the response box to request patience from the user
